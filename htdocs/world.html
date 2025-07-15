@@ -72,51 +72,12 @@
 				<div class="6u 12u$(xsmall)">
 					<br>
 					<h3>美國地區</h3>
-					<blockquote>
-						<a href="http://hsntnu-scal.com/HSNTNU/" target="_blank">
-							<h4>南加州師大附中校友會</h4>
-						</a>
-						<a href="http://www.fc-dc.org/OldSite/Fu_Chung/Fu_Chung.html" target="_blank">
-							<h4>大華府師大附中校友會</h4>
-						</a>
-						<a href="http://houfuchung99.webnode.tw/" target="_blank">
-							<h4>休士頓師大附中校友會</h4>
-						</a>
-						<a href="#" target="_blank">
-							<h4>達拉斯維加斯師大附中校友會</h4>
-						</a>
-						<a href="https://www.facebook.com/groups/1490249727910756" target="_blank">
-							<h4>大紐約師大附中校友聯誼會</h4>
-						</a>
-						<a href="https://www.facebook.com/groups/hsnuncal/" target="_blank">
-							<h4>北加州師大附中校友聯誼會</h4>
-						</a>
-					</blockquote>
+					<div id="america-list"></div>
 				</div>
 				<div class="6u$ 12u$(xsmall)">
 					<br>
 					<h3>東亞地區</h3>
-					<blockquote>
-						<a href="index.html">
-							<h4>國立台灣師範大學附屬高級中學校友會</h4>
-						</a>
-						<a href="#">
-							<h4>華北師大附中校友會</h4>
-						</a>
-						<a href="#">
-							<h4>華東師大附中校友會</h4>
-						</a>
-						<a href="#">
-							<h4>華南師大附中校友會</h4>
-						</a>
-						<a href="#">
-							<h4>華西師大附中校友會</h4>
-						</a>
-						<a href="university/index.html" target="_blank">
-							<h4>大學部師大附中校友會</h4>
-						</a>
-					</blockquote>
-
+					<div id="asia-list"></div>
 				</div>
 			</div>
 		</div>
@@ -131,6 +92,20 @@
 	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 	<script src="assets/js/main.js"></script>
 	<script src="components.js"></script>
+	<script>
+		function renderWorldList(list, containerId) {
+			const container = document.getElementById(containerId);
+			container.innerHTML = '<blockquote>' + list.map(item =>
+				`<a href="${item.url}" target="_blank"><h4>${item.name}</h4></a>`
+			).join('') + '</blockquote>';
+		}
+		fetch('world-data.json')
+			.then(response => response.json())
+			.then(data => {
+				renderWorldList(data.america, 'america-list');
+				renderWorldList(data.asia, 'asia-list');
+			});
+	</script>
 
 </body>
 

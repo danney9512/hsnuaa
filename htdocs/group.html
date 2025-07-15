@@ -72,26 +72,11 @@
 			<div class="row">
 				<div class="6u 12u$(xsmall)">
 					<h4>校友團體</h4>
-					<ul class="alt">
-						<li><a href="https://www.facebook.com/hsnuawb/" target="_blank">師大附中校友管樂團</a></li>
-						<li><a href="https://www.facebook.com/hsnuaco" target="_blank">師大附中校友國樂團</a></li>
-						<li><a href="https://www.facebook.com/HSNUAlumniChoir" target="_blank">師大附中校友合唱團</a></li>
-						<li>師大附中校友慢速壘球隊</li>
-						<li><a href="http://udn.com/news/story/9/1619032-董事長、教授…附中流浪足球隊員來頭大" target="_blank">附中流浪足球隊</a>
-						</li>
-					</ul>
+					<ul class="alt" id="alumni-groups"></ul>
 				</div>
 				<div class="6u$ 12u$(xsmall)">
 					<h3>相關連結</h3>
-					<ul class="alt">
-						<li><a href="https://www.facebook.com/新北早餐與藍天之子-211026125585251" target="_blank">新北早餐與藍天之子</a>
-						</li>
-						<li><a href="https://www.youtube.com/channel/UC6Xnmu0sznU_3k7WUGzOMjQ"
-								target="_blank">附中畢典小組YouTube</a></li>
-						<li><a href="https://zh.wikipedia.org/wiki/國立台灣師範大學附屬高級中學校友列表" target="_blank">附中校友列表</a></li>
-						<li><a href="https://www.hs.ntnu.edu.tw/content?a=T0RESU9UTXdNVGd6TXpRPTNVak01SWpOeGNsVGludGVseQ=="
-								target="_blank">附中班級演變表</a></li>
-					</ul>
+					<ul class="alt" id="related-links"></ul>
 				</div>
 			</div>
 		</div>
@@ -106,6 +91,20 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 	<script src="components.js"></script>
+	<script>
+		function renderGroupList(list, ulId) {
+			const ul = document.getElementById(ulId);
+			ul.innerHTML = list.map(item =>
+				`<li>${item.url ? `<a href="${item.url}" target="_blank">${item.name}</a>` : item.name}</li>`
+			).join('');
+		}
+		fetch('group-data.json')
+			.then(response => response.json())
+			.then(data => {
+				renderGroupList(data.alumniGroups, 'alumni-groups');
+				renderGroupList(data.relatedLinks, 'related-links');
+			});
+	</script>
 	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 
 </body>
